@@ -1,5 +1,4 @@
-package  Java.Toy_shop;
-import Java.Toy_shop.Methods;
+package Java.Toy_shop;
 
 /**
  * ToyClass - Класс игрушки.
@@ -10,31 +9,28 @@ public class ToyClass {
         return name + ", id: " + id + ", количество: " + quantity + ", вероятноть: " + probability;
     }
 
-    public String name;          // - название игрушки
-    public int id;               // - id игрушки
-    public int quantity;         // - колличество игрушек
-    public float probability;    // - вероятность выпадения игрушки.
-    
+    public String name; // - название игрушки
+    public int id; // - id игрушки
+    public int quantity; // - колличество игрушек
+    public float probability; // - вероятность выпадения игрушки.
+
     /**
      * Контруктор Игрушки
+     * 
      * @param name
      * @param id
      * @param quantity
      * @param probability
      */
 
-    //int id = Methods.acssigningIdentifier();
+    // int id = Methods.acssigningIdentifier();
 
     public ToyClass(String name, int id, int quantity, float probability) {
-        this.name = name;       
+        this.name = name;
         this.quantity = quantity;
         this.id = id;
         this.probability = probability;
-    }    
-
-    // probability = Methods.acssigningProbability();
-    // id = Methods.acssigningIdentifier();
-    
+    }
 
     public String getName() {
         return name;
