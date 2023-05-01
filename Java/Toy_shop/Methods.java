@@ -15,8 +15,7 @@ public class Methods {
         toys.add(new ToyClass("Кукла барби", 2, 7, 37));
         toys.add(new ToyClass("Машинка радиоуправляемая", 3, 4, 16));
         toys.add(new ToyClass("Квадракоптер", 4, 2, 11));
-        toys.add(new ToyClass("Дом барби", 5, 2, 11));
-        // printToys(toys);
+        toys.add(new ToyClass("Дом барби", 5, 2, 11));        
 
         return toys;
     }
@@ -36,33 +35,32 @@ public class Methods {
 
     /**
      * @param toys - принимает список игрушек.
-     * @probab - возврадает список игрушек в котором расчитан процент вероятности
+     * @toys - возврадает список игрушек в котором расчитан процент вероятности
      *         выпадения в зависимости от количества элементво и количетва каждой
      *         игрушки.
      */
-    public static ArrayList<ToyClass> probability(ArrayList<ToyClass> toys) {
-        ArrayList<ToyClass> probab = toys;
-        int id = probab.size();
+    public static ArrayList<ToyClass> probability(ArrayList<ToyClass> toys) {        
+        int id = toys.size();
         int totalQuantity = 0;
         int probability = 0;
         // расчитаем общее количество всех игрушек.
         for (int i = 0; i < id; i++) {
-            totalQuantity = totalQuantity + probab.get(i).getQuantity();
+            totalQuantity = totalQuantity + toys.get(i).getQuantity();
         }
         // пересичтаем и перезапишем вероятность выпадения.
         for (int j = 0; j < id; j++) {
-            int quantity = probab.get(j).getQuantity(); // извлелчение количества каждой игрушки
+            int quantity = toys.get(j).getQuantity(); // извлелчение количества каждой игрушки
 
             probability = calculationРrobability(totalQuantity, quantity);
-            ToyClass t = probab.get(j);
+            ToyClass t = toys.get(j);
 
             t.setProbability(probability);
-            probab.set(j, t);
+            toys.set(j, t);
         }
 
-        // printToys(probab);
+        // printToys(toys);
 
-        return probab;
+        return toys;
     }
 
     /**
@@ -130,8 +128,14 @@ public class Methods {
     public static String lotteryToy(ArrayList<Integer> ListToysIdProbability, ArrayList<ToyClass> toys) {
         int index = new Random().nextInt(ListToysIdProbability.size());
         Integer lottery = ListToysIdProbability.get(index);
-        String nameToy = toys.get((lottery - 1)).getName();       
+        
+        int q = toys.get(lottery-1).getQuantity();
+        ToyClass t = toys.get(lottery-1);        
+        t.setQuantity((q-1)); 
+        toys.set(lottery-1, t);
+        FileExportImport.AddFileToy(toys);
 
+        String nameToy = toys.get((lottery-1)).getName();     
         return nameToy;
     }
 
