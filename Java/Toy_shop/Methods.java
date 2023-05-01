@@ -37,14 +37,14 @@ public class Methods {
     /**
      * @param toys - принимает список игрушек.
      * @probab - возврадает список игрушек в котором расчитан процент вероятности
-     *         выпадения в зависимости от количества элементво и количетва каждогой
+     *         выпадения в зависимости от количества элементво и количетва каждой
      *         игрушки.
      */
     public static ArrayList<ToyClass> probability(ArrayList<ToyClass> toys) {
         ArrayList<ToyClass> probab = toys;
         int id = probab.size();
         int totalQuantity = 0;
-        float probability = 0;
+        int probability = 0;
         // расчитаем общее количество всех игрушек.
         for (int i = 0; i < id; i++) {
             totalQuantity = totalQuantity + probab.get(i).getQuantity();
@@ -70,8 +70,8 @@ public class Methods {
      * @param quantity      - количестов каждой игрушки
      * @return процент вероятности выпадения
      */
-    private static float calculationРrobability(int totalQuantity, int quantity) {
-        return (((float) quantity) / (float) totalQuantity) * 100;
+    private static int calculationРrobability(int totalQuantity, int quantity) {
+        return (int)((((float) quantity) / (float) totalQuantity) * 100);
     }
 
     /**
@@ -82,13 +82,14 @@ public class Methods {
         String name = ConsoleView.nameToy();
         int id = toys.size() + 1;
         int quantity = ConsoleView.quantityToy();
-        float probability = 0;
+        int probability = 0;
         toyNew = new ToyClass(name, id, quantity, probability);
 
         System.out.printf("Вы добавии игрушку: %s\n", toyNew.name);
         toys.add(toyNew);
-
+        
         toys = probability(toys);
+        FileExportImport.AddFileToy(toys);
 
         return toys;
     }
@@ -109,7 +110,7 @@ public class Methods {
         ArrayList<Integer> ListToysIdProbability = new ArrayList<>();
         for (int index = 0; index < toys.size(); index++) {
             int id = toys.get(index).getId();
-            float probability = toys.get(index).getProbability();
+            int probability = toys.get(index).getProbability();
             for (int i = 0; i < probability; i++) {
                 ListToysIdProbability.add(id);
             }
@@ -129,8 +130,38 @@ public class Methods {
     public static String lotteryToy(ArrayList<Integer> ListToysIdProbability, ArrayList<ToyClass> toys) {
         int index = new Random().nextInt(ListToysIdProbability.size());
         Integer lottery = ListToysIdProbability.get(index);
-        String nameToy = toys.get((lottery - 1)).getName();
-        //System.out.printf(lottery);
+        String nameToy = toys.get((lottery - 1)).getName();       
+
         return nameToy;
     }
+
+    /**
+     * получение данных из файла.
+     */
+    public static ArrayList <ToyClass> DataVerification(){
+        if (!FileExportImport.checkingFile()){
+            FileExportImport.CreateFileToys ();
+        }
+        ArrayList <ToyClass> toys = convertingFromFile(FileExportImport.ReadFileToy());
+        return toys;
+    }
+    //ArrayList <ToyClass>
+    public static  ArrayList <ToyClass> convertingFromFile (String toysStr){        
+        String[] strSplit = toysStr.split(";");
+        String[] temp;
+        ArrayList <ToyClass> toyss = new ArrayList<>();
+        
+        for (int i = 0; i < strSplit.length; i++) {
+            toysStr = strSplit[i];
+            temp = toysStr.split(", ");
+            
+            String name = temp[0];            
+            int id = Integer.parseInt(temp[1]);
+            int quantity = Integer.parseInt(temp[2]);
+            int probability = (Integer.parseInt(temp[3]));
+            
+            toyss.add(new ToyClass(name, id, quantity, probability));
+        }
+        return toyss;        
+    }        
 }

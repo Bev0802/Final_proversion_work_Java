@@ -6,13 +6,13 @@ package Java.Toy_shop;
 public class ToyClass {
     @Override
     public String toString() {
-        return name + ", id: " + id + ", количество: " + quantity + ", вероятноть: " + probability;
+        return name+", "+ id +", "+ quantity +", "+ probability+";";
     }
 
     public String name; // - название игрушки
     public int id; // - id игрушки
     public int quantity; // - колличество игрушек
-    public float probability; // - вероятность выпадения игрушки.
+    public int probability; // - вероятность выпадения игрушки.
 
     /**
      * Контруктор Игрушки
@@ -25,7 +25,7 @@ public class ToyClass {
 
     // int id = Methods.acssigningIdentifier();
 
-    public ToyClass(String name, int id, int quantity, float probability) {
+    public ToyClass(String name, int id, int quantity, int probability) {
         this.name = name;
         this.quantity = quantity;
         this.id = id;
@@ -56,11 +56,11 @@ public class ToyClass {
         this.quantity = quantity;
     }
 
-    public float getProbability() {
+    public int getProbability() {
         return probability;
     }
 
-    public void setProbability(float probability) {
+    public void setProbability(int probability) {
         this.probability = probability;
     }
 }

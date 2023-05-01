@@ -9,7 +9,7 @@ public class ConsoleView {
 
     public static void view() {
         ArrayList<ToyClass> toys = new ArrayList<ToyClass>();
-        toys = Methods.creatingListToys();
+        toys = Methods.DataVerification();
 
         System.out.println(
                 "\nЭТО ПРОГРАММА РОЗЫГРЫША ИГРУШЕК\n\nЕсли вы хотите поучаствовать нажмите Enter. \nДля выхода нажниме любой символ.");
@@ -18,7 +18,7 @@ public class ConsoleView {
             System.out.println("Розыгрываются следующие игрушки: \n");
             Methods.nameListToys(toys);
             System.out.println(
-                    "Вы можете добавить еще игрушки для розыгрыша. Если хотите добавить еще игрушки нажмите любой символ..\n Для продолжения розыгрыша введите Enter.");
+                    "Вы можете добавить еще игрушки для розыгрыша. Если хотите добавить еще игрушки нажмите любой символ.\n Для продолжения розыгрыша введите Enter.");
             command = sc.nextLine();
             if (!command.equalsIgnoreCase("")) {
                 toys = Methods.addToy(toys);
