@@ -32,12 +32,12 @@ public class Methods {
                 if (ConsoleView.YesNo()){
                     toys.get(i).setQuantity(ConsoleView.quantityToy());                    
                     FileExportImport.AddFileToy(toys);                                   }
-                else System.out.println("Тогда она не будет участвовать в розыгрыше.");
+                else System.out.println("Тогда она не будет участвовать в розыгрыше.\n");
             }
             toys = probability(toys);
-            System.out.printf("%d. %s - %d\n" , toys.get(i).getId(), toys.get(i).getName(), toys.get(i).getQuantity());            
         }
-          
+        for (int i = 0; i < toys.size(); i++) {
+        System.out.printf("%d. %s - %d\n" , toys.get(i).getId(), toys.get(i).getName(), toys.get(i).getQuantity());}
     }   
 
 
