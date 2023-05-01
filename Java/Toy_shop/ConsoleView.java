@@ -12,7 +12,7 @@ public class ConsoleView {
         toys = Methods.DataVerification();
 
         System.out.println(
-                "\nЭТО ПРОГРАММА РОЗЫГРЫША ИГРУШЕК\n\nЕсли вы хотите поучаствовать нажмите Enter. \nДля выхода нажниме любой символ.");
+                "\nЭТО ПРОГРАММА РОЗЫГРЫША ИГРУШЕК\n\nЕсли вы хотите поучаствовать нажмите Enter. \nДля выхода нажмите любой символ.");
         String command = sc.nextLine();
         if (command.equalsIgnoreCase("")) {
             System.out.println("Розыгрываются следующие игрушки: \n");
@@ -42,9 +42,20 @@ public class ConsoleView {
     }
 
     public static int quantityToy() {
-        System.out.println("Введите количестов игрушек: ");
+        System.out.println("Введите количество игрушки: ");
         int quantity = Integer.parseInt(sc.nextLine());
 
         return quantity;
+    }
+
+    public static boolean YesNo(){
+        boolean YesNo;
+        System.out.println("Если ДА нажмите Enter, если НЕТ - ввдедите любой символ.");
+        String command = sc.nextLine();
+        if (command.equalsIgnoreCase("")){
+            YesNo = true;
+        }else {
+        YesNo = false;}
+        return YesNo;
     }
 }

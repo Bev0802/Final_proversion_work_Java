@@ -1,5 +1,6 @@
 package Java.Toy_shop;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Collections;
@@ -21,17 +22,24 @@ public class Methods {
     }
 
     /**
-     * @nameListToys - метод возравщает и распечатывает спискок названий игрушек.
+     * @nameListToys - метод возравщает и распечатывает спискок названий игрушек и их количество.
      */
-    public static ArrayList<String> nameListToys(ArrayList<ToyClass> toys) {
-        ArrayList<String> nameListToys = new ArrayList<>();
+    public static void nameListToys(ArrayList<ToyClass> toys) {        
         for (int i = 0; i < toys.size(); i++) {
-            nameListToys.add(toys.get(i).getName());
-            System.out.printf("%d. %s\n", toys.get(i).getId(), nameListToys.get(i));
-
+            if (toys.get(i).getQuantity()<=0){
+                System.out.printf("Игрушка '%s' закончилась.",toys.get(i).getName());
+                System.out.println("Вы хотие добавить количество?");                
+                if (ConsoleView.YesNo()){
+                    toys.get(i).setQuantity(ConsoleView.quantityToy());                    
+                    FileExportImport.AddFileToy(toys);                                   }
+                else System.out.println("Тогда она не будет участвовать в розыгрыше.");
+            }
+            toys = probability(toys);
+            System.out.printf("%d. %s - %d\n" , toys.get(i).getId(), toys.get(i).getName(), toys.get(i).getQuantity());            
         }
-        return nameListToys;
-    }
+          
+    }   
+
 
     /**
      * @param toys - принимает список игрушек.
@@ -149,7 +157,12 @@ public class Methods {
         ArrayList <ToyClass> toys = convertingFromFile(FileExportImport.ReadFileToy());
         return toys;
     }
-    //ArrayList <ToyClass>
+    
+    /**
+     * Метод конвертирует данные из String полученной из файла в  ArrayList <ToyClass>.
+     * @param toysStr
+     * @return
+     */
     public static  ArrayList <ToyClass> convertingFromFile (String toysStr){        
         String[] strSplit = toysStr.split(";");
         String[] temp;
