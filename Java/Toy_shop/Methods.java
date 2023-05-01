@@ -1,6 +1,5 @@
 package Java.Toy_shop;
 
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Collections;
